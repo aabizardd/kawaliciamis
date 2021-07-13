@@ -148,6 +148,8 @@ class Dataobat extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->update($this->input->post('kode_barang', true));
         } else {
+            // var_dump('ok');die();
+
             $data = array(
                 'nama_barang' => $this->input->post('nama_barang', true),
                 'id_kategori_barang' => $this->input->post('id_kategori_barang', true),
