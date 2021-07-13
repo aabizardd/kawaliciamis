@@ -82,7 +82,7 @@ class Penjualan extends CI_Controller
             'kode_supplier' => set_value('kode_supplier'),
             'obat' => $this->Tbl_obat_alkes_bhp_model->get_all(),
             'pasiens' => $this->db->get('tbl_pasien')->result(),
-            'obats' => $this->db->get('tbl_obat_alkes_bhp')->result(),
+            'obats' => $this->Tbl_obat_alkes_bhp_model->get_all_obat()->result(),
         );
 
         // var_dump($data['pasiens']);die();

@@ -264,7 +264,7 @@ class Dataobat extends CI_Controller
         } else {
             $sql = "SELECT *  FROM tbl_obat_alkes_bhp
             JOIN tbl_kategori_barang ON tbl_obat_alkes_bhp.id_kategori_barang = tbl_kategori_barang.id_kategori_barang
-            JOIN tbl_satuan_barang ON tbl_obat_alkes_bhp.id_satuan_barang = tbl_satuan_barang.id_satuan WHERE tbl_obat_alkes_bhp.Stok = 0 AND tbl_obat_alkes_bhp.Stok < 15";
+            JOIN tbl_satuan_barang ON tbl_obat_alkes_bhp.id_satuan_barang = tbl_satuan_barang.id_satuan WHERE tbl_obat_alkes_bhp.Stok = 0 OR tbl_obat_alkes_bhp.Stok < 15";
         }
 
         $data['list'] = $this->db->query($sql)->result();

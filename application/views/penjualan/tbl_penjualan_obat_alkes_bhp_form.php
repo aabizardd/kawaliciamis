@@ -51,7 +51,8 @@
                                 <select class="form-control" id="inputGroupSelect01" name="kode_barang[]" id="barang1">
                                     <option selected value="">Choose...</option>
                                     <?php foreach ($obats as $obat): ?>
-                                    <option value="<?=$obat->nama_barang?>"><?=$obat->nama_barang?> |
+                                    <option value="<?=$obat->nama_barang?>"><?=$obat->nama_barang?> | Satuan :
+                                        <?=$obat->nama_satuan?> |
                                         Stok : <?=$obat->Stok?> |
                                     </option>
                                     <?php endforeach;?>
@@ -75,7 +76,7 @@ foreach ($obat as $key => $value) {
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <!-- <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Satuan Obat</label>
                                 <input type="text" class="form-control" name="satuan_obat[]" placeholder="Ex: botol"
                                     readonly>
@@ -85,16 +86,15 @@ foreach ($obat as $key => $value) {
                                 <label for="exampleInputEmail1">Stok Obat</label>
                                 <input type="text" class="form-control" name="stok_obat[]" placeholder="Ex: 100"
                                     readonly>
-                            </div>
+                            </div> -->
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label for="exampleInputEmail1">Aturan Pakai</label>
                                 <input type="text" class="form-control" name="aturan_pemakaian[]"
                                     placeholder="Ex: 3 x 1" id="satuan_obat">
                             </div>
 
-                            <div class="form-group col-md-2
-                            ">
+                            <div class="form-group col-md-4">
                                 <label for="exampleInputEmail1">QTY</label>
                                 <input type="number" class="form-control" name="qty[]" placeholder="jumlah">
                             </div>
@@ -231,22 +231,14 @@ $(document).ready(function() {
                 '                                        <select id="barang' + jumlah +
                 '"name="kode_barang[]" class="yahud form-control">' +
                 '<option selected>Pilih...</option>' +
-                <?php foreach ($obats as $obat): ?> '<option value="<?=$obat->nama_barang?>"><?=$obat->nama_barang?> | Stok : <?=$obat->Stok?> |</option>' +
+                <?php foreach ($obats as $obat): ?> '<option value="<?=$obat->nama_barang?>"><?=$obat->nama_barang?> | Satuan : <?=$obat->nama_satuan?> | Stok : <?=$obat->Stok?> |</option>' +
                 <?php endforeach;?> '</select>' +
                 '                                    </div>' +
-                '                                    <div class="form-group col-md-2">' +
-                '                                        <label for="exampleInputEmail1">Satuan Obat</label>' +
-                '                                        <input type="text" class="form-control" name="satuan_obat[]" placeholder="Ex: botol" readonly id="satuan_obat">' +
-                '                                    </div>' +
-                '                                    <div class="form-group col-md-2">' +
-                '                                        <label for="exampleInputEmail1">Stok Obat</label>' +
-                '                                        <input type="text" class="form-control" name="stok_obat[]" placeholder="Ex: 100" readonly>' +
-                '                                    </div>' +
-                '                                    <div class="form-group col-md-2">' +
+                '                                    <div class="form-group col-md-4">' +
                 '                                        <label for="exampleInputEmail1">Aturan Pakai</label>' +
                 '                                        <input type="text" class="form-control" name="aturan_pemakaian[]" placeholder="Ex: 3 x 1">' +
                 '                                    </div>' +
-                '                                    <div class="form-group col-md-2">' +
+                '                                    <div class="form-group col-md-4">' +
                 '                                        <label for="exampleInputEmail1">QTY</label>' +
                 '                                        <input type="number" class="form-control" name="qty[]"  placeholder="jumlah">' +
                 '                                    </div>' +

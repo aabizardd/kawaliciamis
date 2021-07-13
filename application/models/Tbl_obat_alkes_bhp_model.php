@@ -78,6 +78,14 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    public function get_all_obat()
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_obat_alkes_bhp t');
+        $this->db->join('tbl_satuan_barang sb', 'on(t.id_satuan_barang = sb.id_satuan)');
+        return $this->db->get();
+    }
+
 }
 
 /* End of file Tbl_obat_alkes_bhp_model.php */
