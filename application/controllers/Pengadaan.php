@@ -125,7 +125,6 @@ class Pengadaan extends CI_Controller
                 'no_faktur' => $this->input->post('no_faktur', true),
                 'tanggal' => $this->input->post('tanggal', true),
                 'kode_supplier' => $this->getKodeSupplier($this->input->post('kode_supplier', true)),
-                'kode_obat' => $this->input->post('kode_obat', true),
             );
 
             $this->Tbl_pengadaan_obat_alkes_bhp_model->insert($data);
@@ -146,6 +145,7 @@ class Pengadaan extends CI_Controller
                 'no_faktur' => set_value('no_faktur', $row->no_faktur),
                 'tanggal' => set_value('tanggal', $row->tanggal),
                 'kode_supplier' => set_value('kode_supplier', $row->kode_supplier),
+                'obats' => $this->db->get('tbl_obat_alkes_bhp')->result(),
             );
             $this->template->load('template', 'pengadaan/tbl_pengadaan_obat_alkes_bhp_form', $data);
         } else {

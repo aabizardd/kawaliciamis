@@ -30,7 +30,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td width='200'>Obat</td>
                         <td>
                             <select class="form-control" name="kode_obat" id="kode_obat">
@@ -40,7 +40,7 @@
 
                             </select>
                         </td>
-                    </tr>
+                    </tr> -->
                     <!-- <tr><td>Cari Barang</td><td>
                             <div class="row">
                                 <div class=" col-xs-7">

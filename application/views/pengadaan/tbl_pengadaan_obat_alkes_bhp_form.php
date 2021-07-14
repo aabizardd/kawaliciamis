@@ -7,24 +7,55 @@
             </div>
             <form action="<?php echo $action; ?>" method="post">
 
-                <table class='table table-bordered>'        
-                       <tr><td>No Faktur</td><td><input id="nofaktur" onKeyup="load()" placeholder="Masukan No Faktur" class="form-control" type="text" name="no_faktur" value="<?php echo $no_faktur; ?>" /> </td></tr>
-                    <tr><td width='200'>Tanggal <?php echo form_error('tanggal') ?></td><td><input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal" value="<?php echo $tanggal; ?>" /></td></tr>
-                    <tr><td width='200'>Penyedia Obat <?php echo form_error('kode_supplier') ?></td><td><input type="text" class="form-control" name="kode_supplier" id="kode_supplier" placeholder="Nama Penyedia" value="<?php echo $kode_supplier; ?>" /></td></tr>
-                    <tr><td>Cari Obat</td><td>
-                            <div class="row">
+                <table class='table table-bordered>' <tr>
+                    <td>No Faktur</td>
+                    <td><input id="nofaktur" onKeyup="load()" placeholder="Masukan No Faktur" class="form-control"
+                            type="text" name="no_faktur" value="<?php echo $no_faktur; ?>" /> </td>
+                    </tr>
+                    <tr>
+                        <td width='200'>Tanggal <?php echo form_error('tanggal') ?></td>
+                        <td><input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal"
+                                value="<?php echo $tanggal; ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td width='200'>Penyedia Obat <?php echo form_error('kode_supplier') ?></td>
+                        <td><input type="text" class="form-control" name="kode_supplier" id="kode_supplier"
+                                placeholder="Nama Penyedia" value="<?php echo $kode_supplier; ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td>Cari Obat</td>
+                        <td>
+                            <div class="row">\
+
                                 <div class=" col-xs-7">
-                                    <input type="text" id="barang" placeholder="Masukan Nama Obat" class="form-control">
+                                    <select id="barang" class="form-control">
+                                        <?php foreach ($obats as $item) :?>
+                                        <option value="<?= $item->nama_barang ?>"><?= $item->nama_barang ?></option>
+                                        <?php endforeach ?>
+
+                                    </select>
                                 </div>
-                                <div class=" col-xs-2"><input type="text" id="harga" placeholder="harga" class="form-control"></div>
-                                <div class=" col-xs-1"><input type="text" id="qty" placeholder="Qty" class="form-control"></div>
+
+                                <div class=" col-xs-2"><input type="text" id="harga" placeholder="harga"
+                                        class="form-control"></div>
+                                <div class=" col-xs-1"><input type="text" id="qty" placeholder="Qty"
+                                        class="form-control"></div>
                             </div>
-                        </td></tr>
-                    <tr><td></td><td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
                             <button type="button" class="btn btn-danger" onclick="add()">Add Obat</button>
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-floppy-o"></i> <?php echo $button ?></button> 
-                            <a href="<?php echo site_url('pengadaan') ?>" class="btn btn-info"><i class="fa fa-sign-out"></i> Kembali</a></td></tr>
-                </table></form>        </div>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-floppy-o"></i>
+                                <?php echo $button ?></button>
+                            <a href="<?php echo site_url('pengadaan') ?>" class="btn btn-info"><i
+                                    class="fa fa-sign-out"></i> Kembali</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
         <div class="box box-warning box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">DAFTAR ITEM YANG DIBELI </h3>
@@ -43,69 +74,65 @@
 <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
 
 <script type="text/javascript">
-    $(function() {
-        //autocomplete
-        $("#barangbarang").autocomplete({
-            source: "<?php echo base_url() ?>index.php/dataobat/autocomplate",
-            minLength: 1
-        });				
+$(function() {
+    //autocomplete
+    $("#barangbarang").autocomplete({
+        source: "<?php echo base_url() ?>index.php/dataobat/autocomplate",
+        minLength: 1
     });
+});
 </script>
 
 <script type="text/javascript">
-    function add(){
-        var barang = $("#barang").val();
-        var harga = $("#harga").val();
-        var qty = $("#qty").val();
-        var faktur = $("#nofaktur").val();
-        $.ajax({
-            url:"<?php echo base_url() ?>index.php/pengadaan/add_ajax",
-            data:"barang=" + barang + "&qty="+ qty+"&harga=" + harga + "&faktur="+ faktur ,
-            success: function(html)
-            {
-                load();
-            }
-        });
-    
-    }
-    
-    function load(){
+function add() {
+    var barang = $("#barang").val();
+    var harga = $("#harga").val();
+    var qty = $("#qty").val();
     var faktur = $("#nofaktur").val();
-        $.ajax({
-            url:"<?php echo base_url() ?>index.php/pengadaan/list_pengadaan",
-            data:"faktur="+faktur ,
-            success: function(html)
-            {
-                $("#list").html(html);
-            }
-        });
-    }
-        
-    function hapus(id){
-        $.ajax({
-            url:"<?php echo base_url() ?>index.php/pengadaan/hapus_ajax",
-            data:"id_pengadaan=" + id ,
-            success: function(html)
-            {
-                load();
-            }
-        });
-    }
+    $.ajax({
+        url: "<?php echo base_url() ?>index.php/pengadaan/add_ajax",
+        data: "barang=" + barang + "&qty=" + qty + "&harga=" + harga + "&faktur=" + faktur,
+        success: function(html) {
+            load();
+        }
+    });
 
+}
+
+function load() {
+    var faktur = $("#nofaktur").val();
+    $.ajax({
+        url: "<?php echo base_url() ?>index.php/pengadaan/list_pengadaan",
+        data: "faktur=" + faktur,
+        success: function(html) {
+            $("#list").html(html);
+        }
+    });
+}
+
+function hapus(id) {
+    $.ajax({
+        url: "<?php echo base_url() ?>index.php/pengadaan/hapus_ajax",
+        data: "id_pengadaan=" + id,
+        success: function(html) {
+            load();
+        }
+    });
+}
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        //load();             
-    });
+$(document).ready(function() {
+    //load();             
+});
 </script>
 
 <script type="text/javascript">
-    $(function() {
-        //autocomplete
-        $("#kode_supplier").autocomplete({
-            source: "<?php echo base_url() ?>index.php/supplier/autocomplate",
-            minLength: 1
-        });				
+$(function() {
+    //autocomplete
+    $("#kode_supplier").autocomplete({
+        source: "<?php echo base_url() ?>index.php/supplier/autocomplate",
+        minLength: 1
     });
+});
 </script>
