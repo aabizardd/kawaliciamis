@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 05, 2021 at 05:30 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Host: 127.0.0.1
+-- Generation Time: Jul 18, 2021 at 03:30 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -437,7 +437,7 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 --
 
 CREATE TABLE `tbl_obat_alkes_bhp` (
-  `kode_barang` varchar(6) NOT NULL,
+  `kode_barang` varchar(250) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
   `id_kategori_barang` int(11) NOT NULL,
   `id_satuan_barang` int(11) NOT NULL,
@@ -451,10 +451,11 @@ CREATE TABLE `tbl_obat_alkes_bhp` (
 --
 
 INSERT INTO `tbl_obat_alkes_bhp` (`kode_barang`, `nama_barang`, `id_kategori_barang`, `id_satuan_barang`, `harga`, `Kadaluwarsa`, `Stok`) VALUES
-('001', 'BETADIN', 1, 1, 45000, '2020-12-08', 104),
+('001', 'BETADIN', 1, 1, 45000, '2020-12-08', 92),
 ('002', 'obat batuk', 1, 1, 40000, '2021-04-15', 114),
-('003', 'thexametason', 1, 2, 30000, '2020-12-26', 110),
-('8900', 'betadin', 2, 2, 123000, '2021-03-09', 10);
+('003', 'thexametason', 1, 2, 30000, '2020-12-26', 10),
+('8900', 'betadin', 2, 2, 123000, '2021-03-09', 14),
+('KO782', 'Metvormin', 1, 3, 120000, '2021-07-16', 120);
 
 -- --------------------------------------------------------
 
@@ -640,7 +641,7 @@ INSERT INTO `tbl_pendaftaran` (`no_registrasi`, `no_rawat`, `no_rekamedis`, `car
 
 CREATE TABLE `tbl_pengadaan_detail` (
   `id_pengadaan` int(11) NOT NULL,
-  `kode_barang` varchar(6) NOT NULL,
+  `kode_barang` varchar(250) NOT NULL,
   `qty` int(11) NOT NULL,
   `no_faktur` varchar(10) NOT NULL,
   `harga` int(11) NOT NULL
@@ -662,18 +663,21 @@ INSERT INTO `tbl_pengadaan_detail` (`id_pengadaan`, `kode_barang`, `qty`, `no_fa
 --
 
 CREATE TABLE `tbl_pengadaan_obat_alkes_bhp` (
-  `no_faktur` varchar(10) NOT NULL,
+  `no_faktur` varchar(250) NOT NULL,
   `tanggal` date NOT NULL,
-  `kode_supplier` varchar(8) NOT NULL
+  `kode_supplier` varchar(250) NOT NULL,
+  `kode_obat` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_pengadaan_obat_alkes_bhp`
 --
 
-INSERT INTO `tbl_pengadaan_obat_alkes_bhp` (`no_faktur`, `tanggal`, `kode_supplier`) VALUES
-('11', '2021-06-12', '0001'),
-('12', '2021-06-06', '0001');
+INSERT INTO `tbl_pengadaan_obat_alkes_bhp` (`no_faktur`, `tanggal`, `kode_supplier`, `kode_obat`) VALUES
+('11', '2021-06-12', '0001', ''),
+('12', '2021-06-06', '0001', ''),
+('KPN346', '2021-07-16', '0001', ''),
+('pobat60ed15464aab9', '2021-07-17', '0001', '001');
 
 -- --------------------------------------------------------
 
@@ -683,9 +687,9 @@ INSERT INTO `tbl_pengadaan_obat_alkes_bhp` (`no_faktur`, `tanggal`, `kode_suppli
 
 CREATE TABLE `tbl_penjualan_detail` (
   `id_penjualan` int(11) NOT NULL,
-  `kode_barang` varchar(6) NOT NULL,
+  `kode_barang` varchar(250) NOT NULL,
   `qty` int(11) NOT NULL,
-  `no_faktur` varchar(8) NOT NULL,
+  `no_faktur` varchar(250) NOT NULL,
   `aturan_pemakaian` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -707,7 +711,9 @@ INSERT INTO `tbl_penjualan_detail` (`id_penjualan`, `kode_barang`, `qty`, `no_fa
 (46, '003', 10, 'initeslo', '11'),
 (47, '002', 10, 'initeslo', '11'),
 (48, '8900', 10, 'ssass', 'aa'),
-(49, '001', 10, 'ssass', '11');
+(49, '001', 10, 'ssass', '11'),
+(54, '001', 2, 'faktur60ee74e6e938c', '3 x 2'),
+(55, '001', 10, 'faktur60ee75b4eaad8', '3 x 2');
 
 -- --------------------------------------------------------
 
@@ -716,7 +722,7 @@ INSERT INTO `tbl_penjualan_detail` (`id_penjualan`, `kode_barang`, `qty`, `no_fa
 --
 
 CREATE TABLE `tbl_penjualan_obat_alkes_bhp` (
-  `no_faktur` varchar(8) NOT NULL,
+  `no_faktur` varchar(250) NOT NULL,
   `tanggal` date NOT NULL,
   `nama_pasien` varchar(50) NOT NULL,
   `aturan_pemakaian` varchar(11) NOT NULL
@@ -728,13 +734,16 @@ CREATE TABLE `tbl_penjualan_obat_alkes_bhp` (
 
 INSERT INTO `tbl_penjualan_obat_alkes_bhp` (`no_faktur`, `tanggal`, `nama_pasien`, `aturan_pemakaian`) VALUES
 ('006', '2020-12-25', 'yuyi', '1 x sehari'),
+('11111111', '2021-07-12', 'Indah', ''),
 ('1234', '2017-12-24', 'juned', '6'),
 ('12344', '2021-04-13', '11111222', ''),
+('12345555', '2021-07-12', 'Ela', ''),
 ('333', '2020-12-25', 'Yuyi 1', '2 x sehari'),
 ('334', '2020-12-25', 'yusron', '2 x sehari'),
 ('3445', '2020-12-23', 'yuyi', '1 x sehari'),
 ('90999', '2020-12-04', 'alga', '1 x sehari'),
 ('adfg1312', '2021-04-13', '111', ''),
+('asdas121', '2021-07-12', 'INDRA NASUTION', ''),
 ('dfg1312', '2021-04-13', '111', ''),
 ('dfg31', '2021-04-13', '111', ''),
 ('dfg312', '2021-04-13', '111', ''),
@@ -744,6 +753,9 @@ INSERT INTO `tbl_penjualan_obat_alkes_bhp` (`no_faktur`, `tanggal`, `nama_pasien
 ('eka123dd', '0000-00-00', 'anton', ''),
 ('ekatr1', '2021-12-12', 'yuki', ''),
 ('ekatr12', '2021-12-12', 'yukis', ''),
+('faktur60ee74e6e938c', '2021-07-14', 'INDRA NASUTION', ''),
+('faktur60ee75a5e731e', '2021-07-14', 'INDRA NASUTION', ''),
+('faktur60ee75b4eaad8', '2021-07-14', 'INDRA NASUTION', ''),
 ('initeslo', '1111-11-11', '11', ''),
 ('ssass', '2021-04-15', 'se', ''),
 ('tr1221', '2021-12-11', 'gdgh', '2 x sehari'),
@@ -856,7 +868,7 @@ CREATE TABLE `tbl_riwayat_pemberian_obat` (
   `id_riwayat` int(11) NOT NULL,
   `no_rawat` varchar(18) NOT NULL,
   `tanggal` date NOT NULL,
-  `kode_barang` varchar(6) NOT NULL,
+  `kode_barang` varchar(250) NOT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -865,7 +877,6 @@ CREATE TABLE `tbl_riwayat_pemberian_obat` (
 --
 
 INSERT INTO `tbl_riwayat_pemberian_obat` (`id_riwayat`, `no_rawat`, `tanggal`, `kode_barang`, `jumlah`) VALUES
-(1, '2017/12/20/0001', '2017-12-20', '001', 1),
 (2, '2017/12/20/0001', '2017-12-20', '002', 2),
 (3, '2017/12/17/0001', '2017-12-21', '001', 1),
 (4, '2017/12/17/0001', '2017-12-21', '001', 4),
@@ -1077,7 +1088,7 @@ INSERT INTO `tbl_sub_pemeriksaan_laboratoirum` (`kode_sub_periksa`, `kode_periks
 --
 
 CREATE TABLE `tbl_supplier` (
-  `kode_supplier` varchar(6) NOT NULL,
+  `kode_supplier` varchar(250) NOT NULL,
   `nama_supplier` varchar(60) NOT NULL,
   `alamat` text NOT NULL,
   `no_telpon` varchar(13) NOT NULL
@@ -1090,7 +1101,8 @@ CREATE TABLE `tbl_supplier` (
 INSERT INTO `tbl_supplier` (`kode_supplier`, `nama_supplier`, `alamat`, `no_telpon`) VALUES
 ('0001', 'kimia farma', 'jl bandung no 20 kota bandung', '021-34563'),
 ('667', 'kimifajaya', 'makas', '8790'),
-('900', 'kimida', 'makas', '0986t6');
+('900', 'kimida', 'makas', '0986t6'),
+('supp60ed186d3ef22', 'Hermina', 'Tangerang', '123123');
 
 -- --------------------------------------------------------
 
@@ -1558,13 +1570,13 @@ ALTER TABLE `tbl_pekerjaan`
 -- AUTO_INCREMENT for table `tbl_pengadaan_detail`
 --
 ALTER TABLE `tbl_pengadaan_detail`
-  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `tbl_penjualan_detail`
 --
 ALTER TABLE `tbl_penjualan_detail`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `tbl_pj_riwayat_tindakan`
@@ -1648,8 +1660,8 @@ ALTER TABLE `tbl_dokter`
 -- Constraints for table `tbl_obat_alkes_bhp`
 --
 ALTER TABLE `tbl_obat_alkes_bhp`
-  ADD CONSTRAINT `tbl_obat_alkes_bhp_ibfk_1` FOREIGN KEY (`id_kategori_barang`) REFERENCES `tbl_kategori_barang` (`id_kategori_barang`),
-  ADD CONSTRAINT `tbl_obat_alkes_bhp_ibfk_2` FOREIGN KEY (`id_satuan_barang`) REFERENCES `tbl_satuan_barang` (`id_satuan`);
+  ADD CONSTRAINT `tbl_obat_alkes_bhp_ibfk_1` FOREIGN KEY (`id_kategori_barang`) REFERENCES `tbl_kategori_barang` (`id_kategori_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_obat_alkes_bhp_ibfk_2` FOREIGN KEY (`id_satuan_barang`) REFERENCES `tbl_satuan_barang` (`id_satuan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_pasien`
@@ -1671,8 +1683,8 @@ ALTER TABLE `tbl_pendaftaran`
 -- Constraints for table `tbl_pengadaan_detail`
 --
 ALTER TABLE `tbl_pengadaan_detail`
-  ADD CONSTRAINT `tbl_pengadaan_detail_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `tbl_obat_alkes_bhp` (`kode_barang`),
-  ADD CONSTRAINT `tbl_pengadaan_detail_ibfk_2` FOREIGN KEY (`no_faktur`) REFERENCES `tbl_pengadaan_obat_alkes_bhp` (`no_faktur`);
+  ADD CONSTRAINT `tbl_pengadaan_detail_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `tbl_obat_alkes_bhp` (`kode_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_pengadaan_detail_ibfk_2` FOREIGN KEY (`no_faktur`) REFERENCES `tbl_pengadaan_obat_alkes_bhp` (`no_faktur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_pengadaan_obat_alkes_bhp`
@@ -1703,7 +1715,7 @@ ALTER TABLE `tbl_rawat_inap`
 -- Constraints for table `tbl_riwayat_pemberian_obat`
 --
 ALTER TABLE `tbl_riwayat_pemberian_obat`
-  ADD CONSTRAINT `tbl_riwayat_pemberian_obat_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `tbl_obat_alkes_bhp` (`kode_barang`);
+  ADD CONSTRAINT `tbl_riwayat_pemberian_obat_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `tbl_obat_alkes_bhp` (`kode_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_riwayat_pemeriksaan_laboratorium`
