@@ -10,7 +10,7 @@
                 <table class='table table-bordered>' <tr>
                     <td>No Faktur</td>
                     <td><input id="nofaktur" onKeyup="load()" placeholder="Masukan No Faktur" class="form-control"
-                            type="text" name="no_faktur" value="<?php echo uniqid('pobat') ?>" readonly /> </td>
+                            type="text" name="no_faktur" value="<?php echo "KPN" . rand(10, 1000) ?>" readonly /> </td>
                     </tr>
                     <tr>
                         <td width='200'>Tanggal <?php echo form_error('tanggal') ?></td>

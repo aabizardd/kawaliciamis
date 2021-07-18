@@ -202,6 +202,9 @@ class Pengadaan extends CI_Controller
     public function add_ajax()
     {
         $NamaBarang = $this->input->get('barang');
+
+        // var_dump($NamaBarang);die();
+
         $qty = $this->input->get('qty');
         $harga = $this->input->get('harga');
         $faktur = $this->input->get('faktur');

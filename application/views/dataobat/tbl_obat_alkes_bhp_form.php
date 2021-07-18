@@ -11,7 +11,8 @@
                     <tr>
                         <td>Kode Obat</td>
                         <td><input type="text" placeholder="Kode Obat" name="kode_barang"
-                                value="<?php echo $this->uri->segment(3) ?>" class="form-control" readonly /> </td>
+                                value="<?php echo ($this->uri->segment(3)) ? $this->uri->segment(3) : "KO" . rand(10, 1000) ?>"
+                                class="form-control" readonly /> </td>
                     </tr>
                     <tr>
                         <td width='200'>Nama Obat <?php echo form_error('nama_barang') ?></td>

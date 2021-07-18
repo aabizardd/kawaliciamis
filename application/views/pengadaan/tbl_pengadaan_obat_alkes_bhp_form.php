@@ -29,9 +29,9 @@
 
                                 <div class=" col-xs-7">
                                     <select id="barang" class="form-control">
-                                        <?php foreach ($obats as $item) :?>
-                                        <option value="<?= $item->nama_barang ?>"><?= $item->nama_barang ?></option>
-                                        <?php endforeach ?>
+                                        <?php foreach ($obats as $item): ?>
+                                        <option value="<?=$item->nama_barang?>"><?=$item->nama_barang?></option>
+                                        <?php endforeach?>
 
                                     </select>
                                 </div>
@@ -89,7 +89,12 @@ function add() {
     var harga = $("#harga").val();
     var qty = $("#qty").val();
     var faktur = $("#nofaktur").val();
+
+    // alert(qty)
+
+
     $.ajax({
+        type: 'GET',
         url: "<?php echo base_url() ?>index.php/pengadaan/add_ajax",
         data: "barang=" + barang + "&qty=" + qty + "&harga=" + harga + "&faktur=" + faktur,
         success: function(html) {
@@ -123,7 +128,7 @@ function hapus(id) {
 
 <script type="text/javascript">
 $(document).ready(function() {
-    //load();             
+    //load();
 });
 </script>
 

@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('BASEPATH'))
+if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
+}
 
 class Tbl_obat_alkes_bhp_model extends CI_Model
 {
@@ -10,69 +11,71 @@ class Tbl_obat_alkes_bhp_model extends CI_Model
     public $id = 'kode_barang';
     public $order = 'DESC';
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
 
     // get all
-    function get_all()
+    public function get_all()
     {
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
 
     // get data by id
-    function get_by_id($id)
+    public function get_by_id($id)
     {
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    public function total_rows($q = null)
+    {
         $this->db->like('kode_barang', $q);
-	$this->db->or_like('nama_barang', $q);
-	$this->db->or_like('id_kategori_barang', $q);
-	$this->db->or_like('id_satuan_barang', $q);
-    $this->db->or_like('harga', $q);
-    $this->db->or_like('Kadaluwarsa', $q);
-    $this->db->or_like('Stok', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('nama_barang', $q);
+        $this->db->or_like('id_kategori_barang', $q);
+        $this->db->or_like('id_satuan_barang', $q);
+        $this->db->or_like('harga', $q);
+        $this->db->or_like('Kadaluwarsa', $q);
+        $this->db->or_like('Stok', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    public function get_limit_data($limit, $start = 0, $q = null)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('tbl_obat_alkes_bhp.kode_barang', $q);
-	$this->db->or_like('tbl_obat_alkes_bhp.nama_barang', $q);
-	$this->db->or_like('tbl_obat_alkes_bhp.id_kategori_barang', $q);
-	$this->db->or_like('tbl_obat_alkes_bhp.id_satuan_barang', $q);
-    $this->db->or_like('tbl_obat_alkes_bhp.harga', $q);
-    $this->db->or_like('tbl_obat_alkes_bhp.Kadaluwarsa', $q);
-    $this->db->or_like('tbl_obat_alkes_bhp.Stok', $q);
-        $this->db->join('tbl_kategori_barang','tbl_kategori_barang.id_kategori_barang=tbl_obat_alkes_bhp.id_kategori_barang');
-        $this->db->join('tbl_satuan_barang','tbl_satuan_barang.id_satuan=tbl_obat_alkes_bhp.id_satuan_barang');
-	$this->db->limit($limit, $start);
+        $this->db->or_like('tbl_obat_alkes_bhp.nama_barang', $q);
+        $this->db->or_like('tbl_obat_alkes_bhp.id_kategori_barang', $q);
+        $this->db->or_like('tbl_obat_alkes_bhp.id_satuan_barang', $q);
+        $this->db->or_like('tbl_obat_alkes_bhp.harga', $q);
+        $this->db->or_like('tbl_obat_alkes_bhp.Kadaluwarsa', $q);
+        $this->db->or_like('tbl_obat_alkes_bhp.Stok', $q);
+        $this->db->join('tbl_kategori_barang', 'tbl_kategori_barang.id_kategori_barang=tbl_obat_alkes_bhp.id_kategori_barang');
+        $this->db->join('tbl_satuan_barang', 'tbl_satuan_barang.id_satuan=tbl_obat_alkes_bhp.id_satuan_barang');
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
     // insert data
-    function insert($data)
+    public function insert($data)
     {
         $this->db->insert($this->table, $data);
     }
 
     // update data
-    function update($id, $data)
+    public function update($id, $data)
     {
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }
 
     // delete data
-    function delete($id)
+    public function delete($id)
     {
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);

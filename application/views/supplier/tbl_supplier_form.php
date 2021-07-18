@@ -11,7 +11,7 @@
                     <tr>
                         <td>Kode Penyedia</td>
                         <td><input type="text" class="form-control" placeholder="Kode Penyedia" name="kode_supplier"
-                                value="<?php echo uniqid('supp'); ?>" readonly /></td>
+                                value="<?php echo "KPA" . rand(10, 1000); ?>" readonly /></td>
                     <tr>
                     <tr>
                         <td width='200'>Nama Penyedia <?php echo form_error('nama_supplier') ?></td>
